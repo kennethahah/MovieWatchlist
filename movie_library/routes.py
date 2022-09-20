@@ -254,6 +254,15 @@ def watch_today(_id):
         {"_id": _id}, {"$set": {"last_watched": datetime.datetime.today()}})
     return redirect(url_for(".movie", _id=_id))
 
+@pages.get("/delete/<string:_id>")
+@login_required
+@authorized_user_required
+def delete_movie(_id):
+    current_app.db.movie.delete_one({"_id": _id})
+    current_app.db.user.update_one({"email": session['email']},{"$pull": {'movies': _id}})
+    return redirect(url_for("pages.index"))
+
+
 
 @pages.get("/toggle-theme")
 def toggle_theme():
@@ -264,3 +273,4 @@ def toggle_theme():
         session["theme"] = "dark"
 
     return redirect(request.args.get("current_page"))
+
