@@ -1,11 +1,11 @@
 {% extends "layout.html" %}
-
+{% from "macros/greeting.html" import greeting %}
 {% block head_content %}
     <link rel="stylesheet" href="{{ url_for('static', filename='css/movies.css') }}" />
 {% endblock %}
 
 {% block main_content %}
-
+    {{ greeting(current_time, user)}}
     {%- if movies_data %}
         <table class="table">
             <colgroup>

@@ -1,0 +1,16 @@
+.account__header {
+    display: flex;
+    flex-direction: column;
+    width: 30rem;
+    border-bottom: var(--border);
+    margin-bottom: 0.8rem;
+}
+
+.account__header__name {
+    margin-bottom: 0.5rem;
+}
+
+.account__summary{
+    display: flex;
+    flex-direction: column;
+}

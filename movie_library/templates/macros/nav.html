@@ -28,6 +28,10 @@
                 class="nav__link {{ 'nav__link--active' if request.path == url_for('pages.index') }}">
                 <span class="nav__item">Movies</span>
             </a>
+            <a href="{{ url_for('pages.account') }}"
+                class="nav__link {{ 'nav__link--active' if request.path == url_for('pages.account') }}">
+                <span class="nav__item">Account</span>
+            </a>
             <a href="{{ url_for('pages.logout') }}" class="nav__link">
                 <span class="nav__item">Log out</span>
             </a>

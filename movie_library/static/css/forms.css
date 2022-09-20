@@ -91,7 +91,7 @@
 
 .form__error,
 .form__flash--danger {
-  background: var(--accent-colour);
+  background: var(--danger-colour);
 }
 
 .form__flash {
@@ -99,7 +99,7 @@
 }
 
 .form__flash--success {
-  background: var(--accent-colour-2);
+  background: var(--success-colour);
 }
 
 /* Styles specific to the form buttons */

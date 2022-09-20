@@ -6,7 +6,7 @@ from wtforms.validators import InputRequired, NumberRange, Email, Length, EqualT
 class MovieForm(FlaskForm):
     title = StringField("Title", validators=[InputRequired()])
     director = StringField("Director", validators=[InputRequired()])
-
+    
     year = IntegerField("Year", 
     validators=[
         InputRequired(), 
@@ -42,6 +42,7 @@ class ExtendedMovieForm(MovieForm):
 
 class RegisterForm(FlaskForm):
     email = StringField("Email", validators=[InputRequired(), Email()])
+    nickname = StringField("Nickname", validators=[InputRequired()])
     password = PasswordField(
         "Password",
         validators=[

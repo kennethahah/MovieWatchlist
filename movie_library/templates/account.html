@@ -1,0 +1,27 @@
+{% extends "layout.html" %}
+{% from "macros/greeting.html" import greeting %}
+{% block head_content %}
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/account.css') }}" />
+{% endblock %}
+
+{% block main_content %}
+
+
+
+<div class="container">
+    <header class="account__header">
+        <div class="account__header__name">
+            <h1>{{ user.nickname }}</h1>
+            <span>{{ user.email }}</h3></span>
+        </div>
+    </header>
+
+    <div class="account__summary">
+    <span>member since {{ user.create_date.strftime("%Y") }}</span>
+    <span>movies added: {{ user.movie|length }}</span>
+    <span>last login: {{ user.last_login.strftime("%D %R") }}</span>
+    </div>
+
+
+</div>
+{% endblock %}

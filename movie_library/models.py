@@ -19,5 +19,8 @@ class Movie:
 class User:
     _id: str
     email: str
+    nickname: str
     password: str
+    create_date: datetime = None
+    last_login: datetime = None
     movies: list[str] = field(default_factory=list) ## list of movie _id belonging to current user

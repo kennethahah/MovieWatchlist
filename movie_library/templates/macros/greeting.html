@@ -1,0 +1,16 @@
+{% macro greeting(current_time, user) %}
+<div class="greeting">
+    {% set number = current_time.strftime("%-H") | int %}           
+    {% if 3 < number < 12 %}
+        <h1>Good morning, {{ user.nickname }}!</h1>
+    {% elif number < 18 %}
+        <h1>Good afternoon, {{ user.nickname }}!</h1>
+    {% else %}
+        <h1>Good evening, {{ user.nickname }}!</h1>
+    {% endif %}
+    
+    {% if user.movies|length > 0 %}
+        <h3>Here is your movie list. </h3>
+    {% endif %}
+</div>
+{% endmacro %}

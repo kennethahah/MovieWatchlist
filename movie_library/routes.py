@@ -56,7 +56,9 @@ def index():
     return render_template(
         "index.html",
         title="Movies Watchlist",
-        movies_data = movies
+        movies_data = movies,
+        current_time = datetime.datetime.today(),
+        user = user
     )
 
 
@@ -78,6 +80,8 @@ def register():
         user = User(
             _id= uuid.uuid4().hex,
             email= form.email.data,
+            nickname = form.nickname.data,
+            create_date = datetime.datetime.today(),
             password= pbkdf2_sha256.hash(form.password.data)
         )
 
@@ -111,7 +115,7 @@ def login():
         if user and pbkdf2_sha256.verify(form.password.data, user.password):
             session["user_id"] = user._id
             session["email"] = user.email
-
+            current_app.db.user.update_one({"_id": session["user_id"]}, {"$set": {"last_login": datetime.datetime.today()}})
             return redirect(url_for(".index"))
         
         flash("Login credentials not correct", category="danger")
@@ -151,6 +155,13 @@ def add_movie():
         title="Movies Watchlist - Add Movie", 
         form=form)
 
+
+@pages.route("/account")
+@login_required
+def account():
+    user_data = current_app.db.user.find_one({"email": session['email']})
+    user = User(**user_data)
+    return render_template("account.html", user=user, current_time = datetime.datetime.today())
 
 @pages.route("/edit/<string:_id>",methods=["GET","POST"])
 @login_required

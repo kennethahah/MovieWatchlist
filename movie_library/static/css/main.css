@@ -8,7 +8,8 @@
   --accent-colour-2: #3bb54a;
   --link-hover: #d05656;
   --tag-colour: #e5e5e5;
-
+  --danger-colour: #d05656;
+  --success-colour: #3bb54a;
   --border: 3px solid #000;
 }
 
@@ -211,4 +212,12 @@ body {
 
 .link:hover {
   text-decoration: underline;
+}
+
+.greeting {
+  max-width: 50rem;
+  width: 100%;
+  margin: 0 auto;
+  border-spacing: 0;
+  margin-bottom: 1rem;
 }
