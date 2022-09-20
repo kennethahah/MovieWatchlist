@@ -1,4 +1,5 @@
 .account__header {
+    margin-left: 3rem;
     display: flex;
     flex-direction: column;
     width: 30rem;
@@ -7,10 +8,33 @@
 }
 
 .account__header__name {
+    margin-left: 2rem;
     margin-bottom: 0.5rem;
 }
 
 .account__summary{
+    text-transform: uppercase;
+    margin-left: 5rem;
     display: flex;
     flex-direction: column;
+}
+
+.account__operation {
+    display: flex;
+    flex-direction: column;
+    margin: 1rem 0 0 5rem;
+    font-size: 1.2rem;
+}
+
+.operation__link {
+    text-decoration: none;
+    color: var(--accent-colour);
+    margin-bottom: 0.5rem;
+}
+
+.operation__link:hover {
+    color: var(--link-hover)
+}
+
+.operation__item {
 }

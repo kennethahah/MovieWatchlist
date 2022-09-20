@@ -67,3 +67,23 @@ class LoginForm(FlaskForm):
     email = StringField("Email", validators=[InputRequired(), Email()])
     password = PasswordField("Password",validators=[InputRequired()])
     submit = SubmitField("Log in")
+
+class ChangePasswordForm(FlaskForm):
+    current_password = PasswordField("Current Password",validators=[InputRequired()])
+    new_password = PasswordField(
+        "New Password",
+        validators=[
+            InputRequired(),
+            Length(min=6, message="Your password must be at least 6 characters long.")]
+    )
+    confirm_new_password = PasswordField(
+        "Confirm Password",
+        validators=[
+            InputRequired(),
+            EqualTo(
+                "new_password",
+                message = "This password doesn't match the one above."
+            )
+        ]
+    )
+    submit = SubmitField("Confirm")

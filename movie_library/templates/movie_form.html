@@ -22,8 +22,15 @@
             {{ render_area_field(form.description) }}
             {{ render_text_field(form.video_link) }}
     
-            <div>
-                {{ form.submit(class_="button button--form") }}
+            <div class = "button__field">
+                <div>
+                    <a href={{ url_for('pages.movie', _id=movie._id) }} class="button button--form">
+                        Back
+                    </a>
+                </div>
+                <div>
+                    {{ form.submit(class_="button button--form") }}
+                </div>
             </div>
         </div>
     </form>

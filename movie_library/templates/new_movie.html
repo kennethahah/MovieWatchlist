@@ -14,9 +14,16 @@
             {{ render_text_field(form.title) }}
             {{ render_text_field(form.director) }}
             {{ render_text_field(form.year) }}
-    
-            <div>
-                {{ form.submit(class_="button button--form") }}
+
+            <div class = "button__field">
+                <div>
+                    <a href={{ url_for('pages.index') }} class="button button--form">
+                        Back
+                    </a>
+                </div>
+                <div>
+                    {{ form.submit(class_="button button--form") }}
+                </div>
             </div>
         </div>
     </form>

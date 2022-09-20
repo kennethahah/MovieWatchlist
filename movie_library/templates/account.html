@@ -17,11 +17,19 @@
     </header>
 
     <div class="account__summary">
-    <span>member since {{ user.create_date.strftime("%Y") }}</span>
-    <span>movies added: {{ user.movie|length }}</span>
-    <span>last login: {{ user.last_login.strftime("%D %R") }}</span>
+        <span>member since {{ user.create_date.strftime("%Y") }}</span>
+        <span>movies added: {{ user.movie|length }}</span>
+        <span>last login: {{ user.last_login.strftime("%D %R") }}</span>
     </div>
 
+    <div class="account__operation">
+        <a href="#" class="operation__link">
+            <span class="operation__item">Change Nickname</span>
+        </a>
+        <a href="{{ url_for('pages.change_password') }}" class="operation__link">
+            <span class="operation__item">Change Password</span>
+        </a>
+    </div>
 
 </div>
 {% endblock %}
