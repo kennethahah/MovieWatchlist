@@ -116,7 +116,7 @@
   border: none;
   background: var(--background-color);
   text-decoration: none;
-  color: var(--text-muted);
+  color: #000;
 }
 
 .button--form:hover {
