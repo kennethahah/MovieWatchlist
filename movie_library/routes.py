@@ -274,3 +274,6 @@ def toggle_theme():
 
     return redirect(request.args.get("current_page"))
 
+@pages.errorhandler(404)
+def error404(e):
+    return render_template("404.html"), 404

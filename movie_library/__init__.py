@@ -1,5 +1,5 @@
 import os
-from flask import Flask
+from flask import Flask, render_template
 from dotenv import load_dotenv
 from pymongo import MongoClient
 
@@ -7,6 +7,9 @@ from movie_library.routes import pages
 
 load_dotenv()
 
+def error404(e):
+    print(e)
+    return render_template("404.html"), 404
 
 def create_app():
     app = Flask(__name__)
@@ -17,4 +20,5 @@ def create_app():
     app.db = MongoClient(app.config["MONGODB_URI"]).get_default_database()
 
     app.register_blueprint(pages)
+    app.register_error_handler(404,error404)
     return app

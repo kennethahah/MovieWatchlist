@@ -1,0 +1,23 @@
+.error__redirectMsg {
+    margin-top: 2rem;
+    margin-left: 5rem;
+}
+
+.error__heading {
+    margin-left: 5rem;
+}
+
+.error__content {
+    margin: 2rem 0 0 5rem;
+}
+
+.error__link {
+    text-decoration: none;
+    color: var(--accent-colour);
+    margin-left: 5rem;
+}
+
+.error__link:hover {
+    color: var(--link-hover);
+}
+
