@@ -3,7 +3,7 @@
     {% set number = current_time.strftime("%-H") | int %}           
     {% if 3 < number < 12 %}
         <h1>Good morning, {{ user.nickname }}!</h1>
-    {% elif number < 18 %}
+    {% elif 12 <= number < 18 %}
         <h1>Good afternoon, {{ user.nickname }}!</h1>
     {% else %}
         <h1>Good evening, {{ user.nickname }}!</h1>
