@@ -10,12 +10,14 @@ from flask import (
     flash)
 import datetime
 import functools
+import pytz
 from dataclasses import asdict
 from movie_library.forms import ChangePasswordForm, ExtendedMovieForm, MovieForm, RegisterForm, LoginForm, ChangePasswordForm
 from movie_library.models import Movie, User
 import uuid
 from passlib.hash import pbkdf2_sha256
 
+timezone = pytz.timezone('America/New_York')
 
 pages = Blueprint(
     "pages", __name__, template_folder="templates", static_folder="static"
@@ -26,7 +28,7 @@ def login_required(route):
     @functools.wraps(route)
     def route_wrapper(*args, **kwargs):
         if session.get("email") is None:
-            return redirect(url_for(".login"))
+            return redirect(url_for("pages.login"))
         return route(*args, **kwargs)
 
     return route_wrapper
@@ -43,18 +45,6 @@ def authorized_user_required(route):
         return route(*args, **kwargs)
     return route_wrapper
 
-
-def change_theme_by_time(route):
-    @functools.wraps(route)
-    def route_wrapper(*args, **kwargs):
-        current_time = datetime.datetime.today()
-        if 6 < int(current_time.strftime("%-H")) < 18:
-            session["theme"] = "light"
-        else:
-            session["theme"] = "dark"
-        return route(*args, **kwargs)
-    return route_wrapper
-
 @pages.route("/")
 @login_required
 def index():
@@ -68,7 +58,7 @@ def index():
         "index.html",
         title="Movies Watchlist",
         movies_data=movies,
-        current_time=datetime.datetime.today(),
+        current_time=datetime.datetime.now(timezone),
         user=user
     )
 
@@ -92,7 +82,7 @@ def register():
             _id=uuid.uuid4().hex,
             email=form.email.data,
             nickname=form.nickname.data,
-            create_date=datetime.datetime.today(),
+            create_date=datetime.datetime.now(timezone),
             password=pbkdf2_sha256.hash(form.password.data)
         )
 
@@ -127,7 +117,7 @@ def login():
             session["user_id"] = user._id
             session["email"] = user.email
             current_app.db.user.update_one({"_id": session["user_id"]}, {
-                                           "$set": {"last_login": datetime.datetime.today()}})
+                                           "$set": {"last_login": datetime.datetime.now(timezone)}})
             return redirect(url_for("pages.index"))
 
         flash("Login credentials not correct", category="danger")
@@ -194,7 +184,8 @@ def add_movie():
 def account():
     user_data = current_app.db.user.find_one({"email": session['email']})
     user = User(**user_data)
-    return render_template("account.html", user=user, current_time=datetime.datetime.today())
+    user.last_login = user.last_login.replace(tzinfo=datetime.timezone.utc).astimezone(timezone)
+    return render_template("account.html", user=user, current_time=datetime.datetime.now(timezone))
 
 
 @pages.route("/edit/<string:_id>", methods=["GET", "POST"])
@@ -251,7 +242,7 @@ def rate_movie(_id):
 @authorized_user_required
 def watch_today(_id):
     current_app.db.movie.update_one(
-        {"_id": _id}, {"$set": {"last_watched": datetime.datetime.today()}})
+        {"_id": _id}, {"$set": {"last_watched": datetime.datetime.now(timezone)}})
     return redirect(url_for(".movie", _id=_id))
 
 @pages.get("/delete/<string:_id>")
@@ -273,7 +264,3 @@ def toggle_theme():
         session["theme"] = "dark"
 
     return redirect(request.args.get("current_page"))
-
-@pages.errorhandler(404)
-def error404(e):
-    return render_template("404.html"), 404

@@ -8,7 +8,6 @@ from movie_library.routes import pages
 load_dotenv()
 
 def error404(e):
-    print(e)
     return render_template("404.html"), 404
 
 def create_app():
